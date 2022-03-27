@@ -16,7 +16,7 @@ class Tort(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return f'/tort={self.pk}'
+        return f'/tort/{self.pk}'
 
     class Meta:
         verbose_name = 'Торт'
@@ -34,7 +34,7 @@ class Category(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return f'/category={self.pk}'
+        return f'/category/{self.pk}'
 
     class Meta:
         verbose_name = 'Категория'

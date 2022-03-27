@@ -1,6 +1,6 @@
-.custom_card{
-    background-color: #e57373
-    ;
+.card.custom_card{
+    background-color: #e57373;
+    border-radius: 0.5rem !important;
 }
 
 .custom_body{
@@ -9,5 +9,10 @@
 
 .custom_sidebar{
     color: #6610f2;
+}
+
+.huerga {
+    display: flex;
+    align-content: stretch;
 }
 
