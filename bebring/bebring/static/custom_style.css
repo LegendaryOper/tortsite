@@ -1,6 +1,9 @@
-.card.custom_card{
+.custom_card{
     background-color: #e57373;
-    border-radius: 0.5rem !important;
+}
+
+.custom_text_card{
+    color: #d9a4e2;
 }
 
 .custom_body{
