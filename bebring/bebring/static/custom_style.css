@@ -3,7 +3,7 @@
 }
 
 .custom_text_card{
-    color: #d9a4e2;
+    background-color:  #ff8a80;
 }
 
 .custom_body{
@@ -14,8 +14,18 @@
     color: #6610f2;
 }
 
+.custom_category_card{
+    background-color: #ff8a80;
+}
+
+
 .huerga {
     display: flex;
     align-content: stretch;
 }
 
+
+.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+    background-color: #c62828;
+    border-color: red;
+}

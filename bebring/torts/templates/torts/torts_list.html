@@ -1,8 +1,18 @@
 {%extends 'base.html'%}
 {%block title%}Торты{%endblock%}
 {%block content%}
+    {%block category%}
+        {%if category%}
+            <div class="custom_category_card card m-4 mx-auto" style="width: 80%">
+                <h5 class="card-title mx-auto m-2">Категория: {{category.name}}</h5>
+                <img src="{{category.photo.url}}" class="card-img-top" alt="...">
+                <div class="card-body custom_category_card" >
+                    <p class="card-text">{{category.description}}</p>
+            </div>
+        {%endif%}
+    {%endblock%}
 <div>
-    {%for torts in tort%}
+    {%for tort in torts%}
     {% if forloop.counter|add:2|divisibleby:3 %}
         {%if forloop.counter != 0%}
             </div>
@@ -13,11 +23,11 @@
     {%endif%}
                 <div class="col-md-4">
                     <div class="card m-lg-5 inline custom_card" style="width: 18rem; height: 30rem">
-                      <img src="{{torts.tort_photo.url}}" height="200px" class="card-img-top" alt="...">
+                      <img src="{{tort.tort_photo.url}}" height="200px" class="card-img-top" alt="...">
                           <div class="card-body custom_card">
-                            <h5 class="card-title">{{torts.name}}</h5>
-                            <p class="card-text">{{torts.description|safe|linebreaks|truncatewords:"15"}}</p>
-                            <a href="{{torts.get_absolute_url}}" class="btn btn-primary">Подробнее...</a>
+                            <h5 class="card-title">{{tort.name}}</h5>
+                            <p class="card-text">{{tort.description|safe|linebreaks|truncatewords:"15"}}</p>
+                            <a href="{{tort.get_absolute_url}}" class="btn btn-primary custom_button">Подробнее...</a>
                           </div>
                     </div>
                 </div>

@@ -9,7 +9,7 @@ from django.shortcuts import get_object_or_404
 class MainPage(ListView):
     model = Tort
     queryset = Tort.objects.all()
-    context_object_name = 'tort'
+    context_object_name = 'torts'
     paginate_by = 10
     template_name = 'torts/torts_list.html'
 
@@ -34,7 +34,7 @@ class GetTortPage(ListView):
 class GetCategory(ListView):
     model = Category
     context_object_name = 'category'
-    template_name = 'torts/category_page.html'
+    template_name = 'torts/torts_list.html'
 
     def get_queryset(self):
         return Category.objects.get(pk=self.kwargs['category_pk'])
