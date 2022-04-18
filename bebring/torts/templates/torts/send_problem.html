@@ -1,10 +1,10 @@
 {%extends 'base.html'%}
 {% load crispy_forms_tags %}
-{%block title%}Оформить заказ{%endblock%}
+{%block title%}Сообщить о проблеме{%endblock%}
 {%block content%}
-        <div class="d-flex h2 m-4 justify-content-center">Оформить заказ</div>
+        <div class="d-flex h2 m-4 justify-content-center">Сообщить о проблеме</div>
         <div class="col-6 mx-auto m-4">
-            <form method="post" novalidate>
+            <form method="post" novalidate enctype='multipart/form-data'>
             {% csrf_token %}
             {{ form|crispy }}
                 <div class="text-center m-2">

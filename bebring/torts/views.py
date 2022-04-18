@@ -52,11 +52,28 @@ class OfferFormView(CreateView):
     form_class = OfferForm
     success_url = '/'
 
-
     def form_valid(self, form):
         print('form')
         if form.is_valid():
             form.instance.status = StatusForOffer.objects.get(pk=1)
+            form.save()
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        print('invalid')
+        print(form)
+        return super().form_invalid(form)
+
+
+class ProblemFormView(CreateView):
+    template_name = 'torts/send_problem.html'
+    form_class = ProblemForm
+    success_url = '/'
+
+    def form_valid(self, form):
+        print('form')
+        if form.is_valid():
+            form.instance.status = StatusForProblem.objects.get(pk=1)
             form.save()
         return super().form_valid(form)
 

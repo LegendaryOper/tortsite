@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User as DjUser
-from django.core.validators import RegexValidator
+from .validators import phone_regex_validator
+from django.utils.safestring import mark_safe
 
 # Create your models here.
 
@@ -53,12 +54,10 @@ class Category(models.Model):
 
 class Offer(models.Model):
     """Offer for making tort"""
-    phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$',
-                                 message="Phone number must be entered in the format: '+999999999'. "
-                                         "Up to 15 digits allowed.")
+
 
     name = models.CharField(max_length=50)
-    phone_number = models.CharField(validators=[phone_regex], max_length=17, null=True)
+    phone_number = models.CharField(validators=[phone_regex_validator], max_length=17, null=True)
     description = models.TextField(max_length=10000)
     status = models.ForeignKey('StatusForOffer', models.CASCADE, verbose_name='Статус', default=1)
     # user = models.ForeignKey()
@@ -79,11 +78,15 @@ class StatusForProblem(models.Model):
 
 
 class Problem(models.Model):
-    """Problem object t0 solving"""
+    """Problem object to solve"""
     name = models.CharField(max_length=50)
     description = models.TextField(max_length=10000)
-    problem_photo = models.ImageField(upload_to='photos/problem_photos/%Y/%m%d/', blank=True, verbose_name='Фото')
+    problem_photo = models.ImageField(upload_to='photos/problem_photos/%Y/%m%d/', verbose_name='Фото')
     status = models.ForeignKey('StatusForProblem', models.CASCADE, verbose_name='Статус', default=1)
     tort = models.ForeignKey('Tort', models.CASCADE, verbose_name='Заказанный торт', default=1)
+    phone_number = models.CharField(validators=[phone_regex_validator], max_length=17, null=True)
     # user = models.ForeignKey()
+
+    def image_tag(self):
+        return mark_safe('<img src="/media/%s" width="200" height="150" />' % (self.problem_photo))
 

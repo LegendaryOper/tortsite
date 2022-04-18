@@ -1,5 +1,5 @@
 from django import forms
-from .models import Offer, Tort, StatusForOffer
+from .models import Offer, Tort, StatusForOffer, Problem
 
 
 class OfferForm(forms.ModelForm):
@@ -21,4 +21,12 @@ class OfferForm(forms.ModelForm):
 
 
 class ProblemForm(forms.ModelForm):
+    name = forms.CharField(max_length=50, label='Ваше имя')
+    phone_number = forms.RegexField(regex=r'^\+?1?\d{9,15}$', label="Ваш телефон")
+    description = forms.CharField(widget=forms.Textarea, label="Комментарий к заказу", max_length=10000)
+    tort = forms.ModelChoiceField(queryset=Tort.objects.all(), label="Торт")
+    problem_photo = forms.ImageField(label='Фото проблемы')
 
+    class Meta:
+        model = Problem
+        fields = ['name', 'phone_number', 'description', 'tort', 'problem_photo']
