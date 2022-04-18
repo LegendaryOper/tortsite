@@ -1,0 +1,17 @@
+{%extends 'base.html'%}
+{% load crispy_forms_tags %}
+{%block title%}Оформить заказ{%endblock%}
+{%block content%}
+        <div class="d-flex h2 m-4 justify-content-center">Оформить заказ</div>
+        <div class="col-6 mx-auto m-4">
+            <form method="post" novalidate>
+            {% csrf_token %}
+            {{ form|crispy }}
+                <div class="text-center m-2">
+                    <button type="submit" class="btn btn-primary m-2 text-center">Save person</button>
+                </div>
+            </form>
+        </div>
+
+
+{%endblock%}

@@ -24,6 +24,10 @@
     align-content: stretch;
 }
 
+.pink-text{
+    color: #ff8a80 !important;
+}
+
 
 .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited .btn-primary.dropdown-toggle{
     background-color: #c62828;

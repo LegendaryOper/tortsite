@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import *
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, FormView, CreateView
 from django.shortcuts import get_object_or_404
+from .forms import *
 # Create your views here.
 
 
@@ -10,7 +11,7 @@ class MainPage(ListView):
     model = Tort
     queryset = Tort.objects.all()
     context_object_name = 'torts'
-    paginate_by = 10
+    paginate_by = 9
     template_name = 'torts/torts_list.html'
 
 
@@ -46,8 +47,20 @@ class GetCategory(ListView):
         return context
 
 
+class OfferFormView(CreateView):
+    template_name = 'torts/make_offer.html'
+    form_class = OfferForm
+    success_url = '/'
 
 
+    def form_valid(self, form):
+        print('form')
+        if form.is_valid():
+            form.instance.status = StatusForOffer.objects.get(pk=1)
+            form.save()
+        return super().form_valid(form)
 
-
-
+    def form_invalid(self, form):
+        print('invalid')
+        print(form)
+        return super().form_invalid(form)

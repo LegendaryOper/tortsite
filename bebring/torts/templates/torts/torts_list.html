@@ -23,7 +23,7 @@
     {%endif%}
                 <div class="col-md-4">
                     <div class="card m-lg-5 inline custom_card" style="width: 18rem; height: 30rem">
-                      <img src="{{tort.tort_photo.url}}" height="200px" class="card-img-top" alt="...">
+                      <img src="{{tort.main_photo.url}}" height="200px" class="card-img-top" alt="...">
                           <div class="card-body custom_card">
                             <h5 class="card-title">{{tort.name}}</h5>
                             <p class="card-text">{{tort.description|safe|linebreaks|truncatewords:"15"}}</p>
@@ -38,4 +38,35 @@
 
     {%endfor%}
 </div>
+
+
+    {%block pagination%}
+    {%if page_obj%}
+        <nav aria-label="Page navigation example" >
+  <ul class="pagination justify-content-center">
+        {%if page_obj.has_previous%}
+    <li class="page-item">
+      <a class="page-link" href="page_obj.previous_page_number" aria-label="Previous">
+        {%else%}
+      <li class="page-item disabled">
+      <a class="page-link disabled" href="#">
+        {%endif%}
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+      </li>
+    <li class="page-item pink-text"><a class="page-link " href="/?page={{page_obj.number}}">{{page_obj.number}}</a></li>
+      {% if page_obj.has_next %}
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Next">
+          {%else%}
+      <li class="page-item disabled">
+          <a class="page-link" href="#" aria-label="Next">
+          {%endif%}
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+    {%endif%}
+    {%endblock%}
 {%endblock%}
