@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User as DjUser
+from django.contrib.auth.models import AbstractUser
 from .validators import phone_regex_validator
 from django.utils.safestring import mark_safe
 
@@ -55,7 +55,6 @@ class Category(models.Model):
 class Offer(models.Model):
     """Offer for making tort"""
 
-
     name = models.CharField(max_length=50)
     phone_number = models.CharField(validators=[phone_regex_validator], max_length=17, null=True)
     description = models.TextField(max_length=10000)
@@ -63,18 +62,37 @@ class Offer(models.Model):
     # user = models.ForeignKey()
     tort = models.ForeignKey('Tort', models.CASCADE, verbose_name='Заказанный торт', default=1)
 
+    class Meta:
+        verbose_name = 'Заказ'
+        verbose_name_plural = 'Заказы'
+
+    def __str__(self):
+        return 'Заказ' + self.pk
+
 
 class StatusForOffer(models.Model):
     """Status for offer"""
     name = models.CharField(max_length=50)
 
     def __str__(self):
-        return self.name
+        return 'Статус: ' + self.name
+
+    class Meta:
+        verbose_name = 'Статус для заказов'
+        verbose_name_plural = 'Статусы для заказов'
 
 
 class StatusForProblem(models.Model):
     """Status for offer"""
     name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return 'Статус: ' + self.name
+
+    class Meta:
+        verbose_name = 'Статус для проблем'
+        verbose_name_plural = 'Статусы для проблем'
+
 
 
 class Problem(models.Model):
@@ -89,4 +107,12 @@ class Problem(models.Model):
 
     def image_tag(self):
         return mark_safe('<img src="/media/%s" width="200" height="150" />' % (self.problem_photo))
+
+    def __str__(self):
+        return 'Проблема ' + self.name
+
+    class Meta:
+        verbose_name = 'Проблема'
+        verbose_name_plural = 'Проблемы'
+
 

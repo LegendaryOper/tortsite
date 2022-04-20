@@ -1,5 +1,10 @@
 .custom_card{
     background-color: #e57373;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+
 }
 
 .custom_text_card{
@@ -32,4 +37,8 @@
 .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited .btn-primary.dropdown-toggle{
     background-color: #c62828;
     border-color: #ff8a80;
+}
+
+.tortcard_text{
+    height: 70%;
 }
