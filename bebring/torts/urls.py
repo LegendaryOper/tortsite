@@ -7,4 +7,5 @@ urlpatterns = [
     path('category/<int:category_pk>/', GetCategory.as_view(), name='category_page'),
     path('make_offer/', OfferFormView.as_view(), name='make_offer'),
     path('send_problem/', ProblemFormView.as_view(), name='send_problem'),
+    path('about_us/', AboutUsView.as_view(), name='about_us'),
 ]

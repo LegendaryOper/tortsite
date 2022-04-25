@@ -1,10 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import *
-from django.views.generic import ListView, FormView, CreateView
+from django.views.generic import ListView, FormView, CreateView, TemplateView
 from django.shortcuts import get_object_or_404
 from .forms import *
 # Create your views here.
+
 
 
 class MainPage(ListView):
@@ -81,3 +82,7 @@ class ProblemFormView(CreateView):
         print('invalid')
         print(form)
         return super().form_invalid(form)
+
+
+class AboutUsView(TemplateView):
+    template_name = 'torts/about_us.html'

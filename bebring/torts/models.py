@@ -1,9 +1,53 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractBaseUser
 from .validators import phone_regex_validator
 from django.utils.safestring import mark_safe
+from .managers import CustomUserManager
+from django.contrib.auth.models import PermissionsMixin
+from django.utils import timezone
 
 # Create your models here.
+
+
+class CustomUserStatus(models.Model):
+    """Status for CustomUser model"""
+    status = models.CharField(max_length=15)
+
+    def __str__(self):
+        return self.status
+
+    @classmethod
+    def get_default_pk(cls):
+        exam, created = cls.objects.get_or_create(status='Покупатель')
+        return exam.pk
+
+
+class CustomUser(AbstractBaseUser):
+    email = models.EmailField(verbose_name='email address', unique=True)
+    telephone_number = models.CharField(validators=[phone_regex_validator], max_length=17)
+    is_staff = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
+    is_superuser = models.BooleanField(default=False)
+    # status = models.ForeignKey('CustomUserStatus', models.PROTECT, verbose_name='Статус', default=CustomUserStatus.get_default_pk)
+    date_joined = models.DateTimeField(default=timezone.now)
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['telephone_number']
+    objects = CustomUserManager()
+
+    def has_perm(self, perm, obj=None):
+        return self.is_superuser
+
+    def has_module_perms(self, app_label):
+        return self.is_superuser
+
+    def __str__(self):
+        return self.email
+
+    def get_absolute_url(self):
+        return f'/users/{self.pk}'
+
+    class Meta:
+        db_table = 'auth_user'
 
 
 class Tort(models.Model):
